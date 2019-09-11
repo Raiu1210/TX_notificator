@@ -18,6 +18,17 @@ setInterval(function() {
 			counter = 1;
 		} else {
 			while (block_height < parseInt(parsed_json["blockbook"]["bestHeight"], 10)) {
+
+				var block_info = {
+					url: 'https://blockbook.electrum-mona.org/api/v1/block/' + block_height,
+					method: 'GET'
+				}
+
+				request(block_info, function (error, response, block_data) {
+					console.log(JSON.parse(block_data))
+
+				})
+
 				console.log(block_height + 1)
 				block_height += 1
 			}
@@ -25,4 +36,4 @@ setInterval(function() {
 	
 		block_height = parseInt(parsed_json["blockbook"]["bestHeight"], 10)
 	})
-}, 100000);
+}, 10000);
